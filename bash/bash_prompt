@@ -4,8 +4,13 @@
 # Taken from https://github.com/necolas/dotfiles/blob/master/shell/bash_prompt
 
 # Example:
-# user@host: ~/.dotfiles on master [+!?$]
+# nicolas@host: ~/.dotfiles on master [+!?$]
 # $
+
+# Screenshot: http://i.imgur.com/DSJ1G.png
+# iTerm2 prefs: import Solarized theme (disable bright colors for bold text)
+# Color ref: http://vim.wikia.com/wiki/Xterm256_color_names_for_console_Vim
+# More tips: http://www.cyberciti.biz/tips/howto-linux-unix-bash-shell-setup-prompt.html
 
 prompt_git() {
     local s=""
@@ -73,9 +78,7 @@ set_prompts() {
     local hostStyle=""
     local userStyle=""
 
-    local unamestr=`uname`
-
-    if [[ "$unamestr" == "Darwin" ]] && [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
+    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
         tput sgr0 # reset colors
 
         bold=$(tput bold)
@@ -111,16 +114,16 @@ set_prompts() {
 
     # logged in as root
     if [[ "$USER" == "root" ]]; then
-        userStyle="$bold$red"
+        userStyle="\[$bold$red\]"
     else
-        userStyle="$orange"
+        userStyle="\[$orange\]"
     fi
 
     # connected via ssh
     if [[ "$SSH_TTY" ]]; then
-        hostStyle="$bold$red"
+        hostStyle="\[$bold$red\]"
     else
-        hostStyle="$yellow"
+        hostStyle="\[$yellow\]"
     fi
 
     # set the terminal title to the current working directory
@@ -132,7 +135,7 @@ set_prompts() {
     PS1+="\[$hostStyle\]\h" # host
     PS1+="\[$reset$white\]: "
     PS1+="\[$green\]\w" # working directory
-    PS1+="\$(prompt_git \"$white on $cyan\")" # git repository details
+    PS1+="\$(prompt_git \"$reset on $cyan\")" # git repository details
     PS1+="\n"
     PS1+="\[$reset$white\]\$ \[$reset\]" # $ (and reset color)
 
