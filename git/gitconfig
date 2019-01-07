@@ -1,3 +1,7 @@
+[user]
+	name = gk9
+	email = gk9@users.noreply.github.com
+
 [alias]
 	# Shortcuts
 	ci = commit
