@@ -1,7 +1,3 @@
-[user]
-	name = David Piegza
-	useconfigonly = true
-
 [alias]
 	# Shortcuts
 	ci = commit
